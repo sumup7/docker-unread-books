@@ -1,0 +1,7 @@
+{
+  "name": "unread-books",
+  "description": "積読本管理アプリ",
+  "logo": "",
+  "keywords": ["node"],
+  "image": "render/nodejs"
+}

@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h3.my-3 本の情報の編集
+  form(method="post", action=`/book/${book.bookId}?edit=1`)
+    input(type="hidden" name="_csrf" value!=csrfToken)
+    div.form-group
+      h5 積ん読本のタイトル
+      input(type="text" name="bookTitle" value=book.bookTitle)#bookTitle.form-control
+      h5 著者
+      input(type="text" name="author" value=book.author)#author.form-control
+      h5 出版社
+      input(type="text" name="publisher" value=book.publisher)#publisher.form-control
+    div.form-group
+      h5 メモ
+      textarea(name="memo")#memo.form-control #{book.memo}
+    - var isMine = parseInt(user.id) === book.user.userId
+    if isMine
+    div.form-group
+      button(type="submit").btn.btn-success 以上の内容で本の情報を編集する

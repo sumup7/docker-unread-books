@@ -1,5 +1,57 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div.jumbotron.my-3.bg-warning
+    h1.display-4 積読本管理アプリ
+    p.lead 積読管理アプリは、Githubで認証でき、積読本の管理、共有、紹介ができるサービスです
+  if user
+    div
+      a(href="/book/new").btn.btn-success 積読本を登録する
+    - var hasUnreadBook = unreadBooks.length > 0
+    if hasUnreadBook
+      h3.my-3 あなたの登録した積読本の一覧
+      table.table
+        tr
+          th 積読本のタイトル
+          th 更新日時
+        each unreadBook in unreadBooks
+          tr
+            td
+              a(href=`/book/${unreadBook.bookId}`) #{unreadBook.bookTitle}
+            td #{unreadBook.formattedUpdatedAt}
+    - var hasReadBook = readBooks.length > 0
+    if hasReadBook
+      h3.my-3 あなたの読破した積読本の一覧
+      table.table
+        tr
+          th 読破した本のタイトル
+          th 更新日時
+        each readBook in readBooks
+          tr
+            td
+              a(href=`/book/${readBook.bookId}`) #{readBook.bookTitle}
+            td #{readBook.formattedUpdatedAt}
+    - var hasAllUnreadBook = allUnreadBooks.length > 0
+    if hasAllUnreadBook
+      h3.my-3 すべてのユーザーが登録した積読本の一覧
+      table.table
+        tr
+          th すべてのユーザーの積読本のタイトル
+          th 更新日時
+        each allUnreadBook in allUnreadBooks
+          tr
+            td
+              a(href=`/book/${allUnreadBook.bookId}`) #{allUnreadBook.bookTitle}
+            td #{allUnreadBook.formattedUpdatedAt}
+    - var hasAllReadBook = allReadBooks.length > 0
+    if hasAllReadBook
+      h3.my-3 すべてのユーザーの読破した積読本の一覧
+      table.table
+        tr
+          th すべてのユーザーの読破した本のタイトル
+          th 更新日時
+        each allReadBook in allReadBooks
+          tr
+            td
+              a(href=`/book/${allReadBook.bookId}`) #{allReadBook.bookTitle}
+            td #{allReadBook.formattedUpdatedAt}

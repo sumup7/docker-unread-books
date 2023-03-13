@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  div.card.my-3(style="width: 44rem;")
+    div.card-header
+      h4 #{book.bookTitle}
+    div.card-body
+      ui.list-group
+        li.list-group-item 積ん読本のタイトル
+         p #{book.bookTitle}
+        li.list-group-item 著者
+         p #{book.author}
+        li.list-group-item 出版社
+         p #{book.publisher}
+        li.list-group-item メモ
+         p  #{book.memo}
+        li.li.list-group-item
+    div.card-body
+      img(src=`${book.photo}`, alt='書影' width='150' height='230')
+    div.card-footer
+      p 作成者: #{book.user.username}
+    - var isMine = parseInt(user.id) === book.user.userId
+    if isMine
+      a(href=`/book/${book.bookId}/edit`) この本を編集にする
+    if isMine
+      h3 この本は読了済みにする
+        form(action=`/book/${book.bookId}?read=1`, method="post")
+          input(type="hidden" name="_csrf" value!=csrfToken)
+          button(type="submit").btn.btn-success この本を読了済にする

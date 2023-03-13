@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  form.my-3
+    div.from-group
+  form(method="post", action="/book").my-3
+    input(type="hidden" name="_csrf" value!=csrfToken)
+    div.from-group
+      h5 積ん読本のタイトル
+      input(type="text" name="bookTitle")
+    div.from-group
+      h5 著者
+      input(type="text" name="author")
+    div.from-group
+      h5 出版社
+      input(type="text" name="publisher")
+    div.from-group
+      input(type="hidden" name="photoUrl")
+    div.from-group
+      h5 メモ
+      textarea(name="memo")
+    button(type="submit").btn.btn-success 積読本情報を登録して他のユーザーと共有する
